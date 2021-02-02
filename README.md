@@ -5,3 +5,5 @@ On the Internet, two computers often want to exchange secure data with each othe
 
 ### Solution
 Public key encryption is the rescue! It's an asymmetric encryption technique which uses different keys for encryption and decryption, allowing computers over the Internet to securely communicate with each other.
+
+![Idea](/locky.gif)
