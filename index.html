@@ -1,0 +1,138 @@
+<html>
+<head>
+<head>
+<link rel="stylesheet" href="styles.css">
+<title>Public-Key Encryption</title>
+<link href="faviconimg.png" rel="icon">
+<script language="JavaScript1.2">
+ A  = new Array (35);
+Chars0 = "................................"; // 0-31
+	Chars1 = ' !"#$%&.()*.,-./0123456789:;<=>?'; //32-63
+	Chars2 = "@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_"; //64-95
+	Chars3 = "..abcdefghijklmnopqrstuvwxyz{|}~."; //96-127
+	Chars4 = "................................"; //128 - 159
+	Chars5 = "��������������������������������"; //160 - 191
+	Chars6 = "��������������������������������"; //192 - 223
+	Chars7 = "��������������������������������"; //224 - 255
+	all_Chars = Chars0+Chars1+Chars2+Chars3+Chars4+Chars5+Chars6+Chars7;
+
+function clear() {
+	document.gen_form.public_key.value ="";
+	document.gen_form.private_key.value= "";
+	document.myform.input.value="";
+	document.myform.encrypt_key.value = "";
+	document.myform.crypted.value="";
+}
+
+function generate() {
+	today = new Date();
+	key1 = today.getTime()%256;
+	document.gen_form.public_key.value = key1;
+	document.gen_form.private_key.value= 256 - key1;
+}
+
+		
+function encrypt() {
+ 
+	len = document.myform.input.value.length;
+	message = document.myform.input.value;
+	key = document.myform.encrypt_key.value;
+
+	document.myform.crypted.value="";
+	for (n=0;n<len;n++) {
+	 A[n] =  message.charCodeAt(n);
+         for (j=0;j<key;j++){
+	    A[n] ++; 
+         }
+         //document.myform.crypted.value += " ";
+	 document.myform.crypted.value += A[n];
+        }
+}
+
+function decrypt() {
+	
+
+	key = document.decrypt_form.decrypt_key.value - 256;
+	len = document.myform.input.value.length;
+	document.decrypt_form.decrypted.value="";
+        for (i=0;i<len;i++) {
+	    decrypt_value = (A[i]+key)%256;
+	    document.decrypt_form.decrypted.value += all_Chars.charAt(decrypt_value);
+	}
+}
+</script>
+</head>
+<body bgcolor="#ced7d8" onLoad=clear()>
+<center>
+<h1 id="rcorners3">Public-Key encryption</h1>
+<img src="encryption.jpeg" alt="Public Key Encryption">
+</center>
+
+<h3 id="rcorners4">Problem</h3>
+<p id="bordering" style="background-color:white;color:black;">On the Internet, two computers often want to exchange secure data with each other. When we type some password into any website's login screen, we want our computer to send that data safely to the required website. We do not want to worry that an attacker might be monitoring our Internet traffic and watching the password go across the wires.</p>
+
+
+<h3 id="rcorners4">Solution</h3>
+<p id="bordering" style="background-color:white;color:black;">Public key encryption is the rescue! It's an asymmetric encryption technique which uses different keys for encryption and decryption, allowing computers over the Internet to securely communicate with each other.</p>
+<center>
+<img src="locky.gif" alt="Public Key Encryption">
+</center>
+<h3 id="rcorners4">Working Model</h3>
+<h2>Step 1: Generate Keys</h2>
+<P>Press the button to generate a pair of randomly chosen keys.</p>
+
+
+<P>
+The <b>public key</b> will be posted in a  public key repository
+where anyone can find it. </p>
+<P>The <b>private key</b> should be known only to
+you.</p>
+<form id="border1" name="gen_form">
+<input type="button" value="Generate keys" onClick = generate()>
+Public key: &nbsp; 
+<input type ="text" size=5 name="public_key">
+Private key: &nbsp; 
+<input type ="text" size=5 name="private_key">
+</form>
+
+
+<h2>Step 2: Encrypt the message </h2>
+<P>Now type in a short message and enter one of the keys from above.
+Then press the button.</p>
+<form id="border1" name="myform">
+Message: &nbsp;
+<input type="text" size=35 value="" name="input">
+Encryption key:
+&nbsp; <input type="text" size=5 name = encrypt_key>
+&nbsp; <input type="button" value="Encode message"
+ onClick=encrypt()><P>
+ <b>The encrypted message:</b>
+<input type="text" size=75 value="" name="crypted">
+</form>
+
+<h2>Step 3: Decrypt the message </h2>
+<P>Pretend that you have received the encrypted message over the Internet. 
+Now enter an appropriate decryption key and press the "Decode" button.</p>
+<P>
+<i>Hint:</i> If you used one of the two keys generated in step 1, 
+the other key works here.</p>
+<form id="border1" name="decrypt_form">
+
+Decryption key:
+&nbsp; <input type="text" size=5 name = decrypt_key>
+&nbsp; <input type="button" value="Decode message"
+ onClick=decrypt()><P>
+<font color="red"><b>The decrypted message:</b></font>
+<input type="text" size=35 value="" name="decrypted">
+</form>
+<center>
+<img src="staysafe.jpg" alt="Public Key Encryption" width="1100" height="350">
+</center>
+<br>
+<br>
+<footer>
+  <p>Developer: Saumya Srivastava<br>
+  <a href="mailto:srivastavasaumya123@gmail.com">srivastavasaumya123@gmail.com</a></p>
+</footer>
+</body>
+</html>
